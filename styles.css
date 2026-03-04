@@ -1,0 +1,166 @@
+:root {
+  --bg: #070b17;
+  --panel: rgba(20, 28, 49, 0.72);
+  --panel-border: rgba(255, 255, 255, 0.1);
+  --text: #eaf0ff;
+  --muted: #9fb1da;
+  --accent: #8d7dff;
+  --accent-2: #1cc5c9;
+  --danger: #ff6c8a;
+  --success: #35d29a;
+  --shadow: 0 18px 42px rgba(3, 8, 22, 0.45);
+}
+
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: "Inter", system-ui, -apple-system, sans-serif;
+  background: radial-gradient(circle at 10% 10%, #162346, #070b17 50%);
+  color: var(--text);
+  min-height: 100vh;
+}
+
+.app-shell {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2.5rem 1.2rem 3rem;
+}
+
+.hero h1 { margin: 0.2rem 0 0.6rem; font-size: clamp(1.9rem, 4vw, 3rem); }
+.eyebrow { color: var(--accent-2); letter-spacing: 0.08em; text-transform: uppercase; font-weight: 600; font-size: 0.75rem; }
+.hero-copy { color: var(--muted); max-width: 70ch; margin: 0; }
+
+.card-surface {
+  background: var(--panel);
+  border: 1px solid var(--panel-border);
+  border-radius: 18px;
+  backdrop-filter: blur(14px);
+  box-shadow: var(--shadow);
+}
+
+.controls {
+  margin-top: 1.25rem;
+  padding: 1rem;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(180px, 1fr));
+  gap: 0.9rem;
+}
+
+.control-group label { display: block; margin-bottom: 0.35rem; color: var(--muted); font-size: 0.86rem; }
+.control-group input,
+.control-group select {
+  width: 100%;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(11, 17, 34, 0.9);
+  color: var(--text);
+  padding: 0.66rem 0.75rem;
+}
+
+.summary-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 0.8rem;
+  margin: 1rem 0;
+}
+
+.summary-tile { padding: 0.9rem; }
+.summary-tile p { margin: 0.1rem 0; color: var(--muted); font-size: 0.82rem; }
+.summary-tile h3 { margin: 0; font-size: 1.4rem; }
+
+.trend-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 0.95rem;
+}
+
+.trend-card {
+  padding: 1rem;
+  position: relative;
+}
+
+.badge {
+  display: inline-flex;
+  padding: 0.22rem 0.58rem;
+  font-size: 0.72rem;
+  border-radius: 999px;
+  background: rgba(141, 125, 255, 0.2);
+  color: #ccc6ff;
+  border: 1px solid rgba(141, 125, 255, 0.5);
+}
+
+.trend-card h3 { margin: 0.5rem 0 0.4rem; font-size: 1.1rem; }
+.meta { color: var(--muted); font-size: 0.85rem; margin-bottom: 0.8rem; }
+.metrics { display: grid; grid-template-columns: 1fr 1fr; gap: 0.55rem; }
+.metric {
+  background: rgba(6, 11, 24, 0.75);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 10px;
+  padding: 0.55rem;
+}
+.metric span { display: block; color: var(--muted); font-size: 0.74rem; }
+.metric strong { font-size: 1rem; }
+
+.progress {
+  margin-top: 0.7rem;
+  height: 7px;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.1);
+  overflow: hidden;
+}
+.progress > div { height: 100%; background: linear-gradient(90deg, var(--accent), var(--accent-2)); }
+
+.card-actions { margin-top: 0.85rem; }
+button {
+  border: none;
+  border-radius: 10px;
+  padding: 0.56rem 0.85rem;
+  background: linear-gradient(120deg, var(--accent), #667bff);
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+}
+button:hover { filter: brightness(1.08); }
+
+.modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(2, 6, 14, 0.75);
+  display: grid;
+  place-items: center;
+  padding: 1rem;
+}
+.hidden { display: none; }
+.modal-panel {
+  width: min(760px, 96vw);
+  max-height: 92vh;
+  overflow-y: auto;
+  background: #0b1327;
+  border: 1px solid var(--panel-border);
+  border-radius: 16px;
+  padding: 1.1rem;
+  position: relative;
+}
+.close-btn {
+  position: absolute;
+  right: 0.8rem;
+  top: 0.6rem;
+  background: transparent;
+  font-size: 1.5rem;
+  color: var(--muted);
+}
+
+.breakdown {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(120px, 1fr));
+  gap: 0.6rem;
+}
+.breakdown .metric strong { font-size: 1.05rem; }
+
+.risk-low { color: var(--success); }
+.risk-high { color: var(--danger); }
+
+@media (max-width: 860px) {
+  .controls { grid-template-columns: 1fr; }
+  .breakdown { grid-template-columns: 1fr; }
+}
