@@ -1,65 +1,66 @@
-# Next Big Product' Radar (Static Hackathon Build)
+# Next Big Product Radar (Live Data, No Mock Dataset)
 
-A clean, premium static dashboard for spotting **early Indian wellness opportunities** and separating real trend momentum from short-term hype.
+A premium static web app that evaluates **real Indian wellness signals** and separates **REAL trends vs FADs** using an explainable Trend Quality Score (TQS).
 
-## Files
-- `index.html` — App layout and modal container.
-- `styles.css` — Premium dark UI styling and responsive cards.
-- `app.js` — Data loading, weighted Signal Velocity scoring, filters, sort, search, and modal brief rendering.
-- `data/sample_trends.json` — 10 India-relevant wellness trend inputs.
+## Live data sources used
+- Google Trends (India trending RSS feed)
+- Reddit live search JSON
+- YouTube search RSS feed
+- PubMed (NCBI E-utilities)
+
+> This build does not rely on local sample trend data files. It fetches live signals at runtime.
 
 ## How to run
-1. Clone/download the project.
-2. Open `index.html` in a browser.
+1. Open `index.html` directly, or
+2. Run a local server (recommended for browser fetch compatibility):
+   ```bash
+   python3 -m http.server 8000
+   ```
+   Then open `http://localhost:8000`.
 
-> Note: Some browsers block `fetch()` from local `file://` context. If that happens, run a tiny local server instead:
-> ```bash
-> python3 -m http.server 8000
-> ```
-> Then open `http://localhost:8000`.
+## Scoring logic (explainable)
+Each candidate trend receives these component scores (0–100):
 
-## Scoring logic (Signal Velocity: 0–100)
-Each trend’s Signal Velocity is computed from weighted components:
+- **Velocity**: blended growth across Google + Reddit + YouTube
+- **Durability**: persistent slope with low spikeiness
+- **Intent**: usage/purchase style language + instructional content ratio
+- **Evidence**: PubMed momentum and supporting evidence density
+- **Competition**: saturation proxy from social/video volume
 
-- **Google Trends Growth score (45%)**
-- **Mentions score (35%)** = average of Reddit spike % and YouTube spike %
-- **Recency score (20%)** = fresher spikes get higher scores (0 days → 100, 30+ days → 0)
+Final score:
 
-Formula:
+`TQS = 0.30*Durability + 0.25*Velocity + 0.20*Intent + 0.15*Evidence + 0.10*(100-Competition)`
 
-`Signal Velocity = (growthScore × 0.45) + (mentionScore × 0.35) + (recencyScore × 0.20)`
+Classification:
+- **FAD** if spikeiness is high OR durability is low OR evidence is weak.
+- **REAL** when durability + multi-signal breadth + intent pass thresholds.
 
-The full component breakdown and weights are shown in each trend’s **View Full Brief** modal.
-
-## Dashboard features
-- Trend cards with:
-  - Trend name
-  - Category
-  - Signal Velocity (0–100)
-  - Google Trends growth %
-  - Reddit & YouTube mention spikes
-  - Risk score
-  - Opportunity size estimate (₹ Cr)
-- Filters:
-  - Category dropdown
-  - Sort by: Signal Velocity / Opportunity / Risk
-  - Search bar
-- “View Full Brief” modal for detail view and execution notes.
+## What the dashboard shows
+- Trend name + category
+- REAL/FAD badge
+- TQS + Signal Velocity
+- Google growth %, Reddit/YT spikes
+- Risk score
+- Opportunity estimate (₹ Cr)
+- Time-to-mainstream estimate
+- Sparkline (7/30/90 style momentum proxy)
+- “View Opportunity Brief” modal with score breakdown and founder action plan
 
 ## Founder Action Plan (Template)
-Use this structure for each shortlisted trend:
+1. **Trend Thesis (1 line)**
+2. **Hero SKU Wedge (novel product format)**
+3. **90-day validation plan**
+4. **Risk controls and kill metrics**
+5. **Scale trigger conditions**
 
-1. **Trend Thesis (1 sentence)**
-   - Why this is a durable behavior shift, not a temporary content spike.
-2. **Hero Product Hypothesis**
-   - SKU format, benefit claim, and target cohort.
-3. **90-Day Validation Plan**
-   - Week 1–2: landing page + waitlist + creator sampling
-   - Week 3–6: first micro-batch launch + retention tracking
-   - Week 7–12: optimize CAC/ROAS and reorder rates
-4. **Risk Controls**
-   - Regulatory/compliance checklist
-   - Claim substantiation requirements
-   - Kill-switch metrics (e.g., repeat rate below threshold)
-5. **Scale Trigger**
-   - Conditions to invest in inventory, distribution, and brand campaigns.
+## Deployment (live URL)
+Deploy this static app on any static host (Vercel/Netlify/GitHub Pages).
+
+### Vercel quick deploy
+1. Push repo to GitHub
+2. Import project in Vercel
+3. Framework preset: `Other` / static
+4. Deploy
+5. Add your generated live URL here:
+
+`LIVE_URL_HERE`
