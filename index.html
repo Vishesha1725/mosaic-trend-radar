@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Next Big Product Radar</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <nav class="top-nav">
+      <div class="brand">✨ Next Big Product Radar</div>
+      <a class="nav-link" href="brief.html">Founder Brief</a>
+    </nav>
+
+    <main class="container">
+      <header class="hero">
+        <h1>Find what’s actually taking off in India wellness</h1>
+        <p>Live data, simple scores, and clear “REAL vs FAD” calls.</p>
+      </header>
+
+      <section class="control-bar card">
+        <div class="timeline" id="timelineBtns">
+          <button data-timeline="7D">7D</button>
+          <button data-timeline="30D">30D</button>
+          <button data-timeline="90D" class="active">90D</button>
+          <button data-timeline="12M">12M</button>
+        </div>
+
+        <input id="searchInput" type="search" placeholder="Search a trend..." />
+
+        <select id="categoryFilter">
+          <option value="all">All categories</option>
+          <option>Sleep</option>
+          <option>Gut</option>
+          <option>Women</option>
+          <option>Skin</option>
+          <option>Focus</option>
+          <option>Longevity</option>
+        </select>
+
+        <select id="sortBy">
+          <option value="fast">How fast it’s growing</option>
+          <option value="money">Money potential (₹)</option>
+          <option value="risk">Risk (low to high)</option>
+          <option value="last">Will it last?</option>
+        </select>
+
+        <button id="refreshBtn">Refresh</button>
+      </section>
+
+      <p id="statusText" class="status">Loading live trends…</p>
+
+      <section id="trendGrid" class="grid"></section>
+      <section id="emptyState" class="empty hidden card">
+        <h3>Hmm, no match yet 👀</h3>
+        <p>Try another keyword or switch timeline. Great trends are shy sometimes.</p>
+      </section>
+    </main>
+
+    <script src="app.js" defer></script>
+  </body>
+</html>
