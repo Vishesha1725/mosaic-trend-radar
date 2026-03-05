@@ -3,75 +3,62 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Next Big Product Radar · India Wellness</title>
+    <title>Next Big Product Radar</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
-      rel="stylesheet"
-    />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <div class="app-shell">
+    <nav class="top-nav">
+      <div class="brand">✨ Next Big Product Radar</div>
+      <a class="nav-link" href="brief.html">Founder Brief</a>
+    </nav>
+
+    <main class="container">
       <header class="hero">
-        <p class="eyebrow">Live Multi-Signal Intelligence · India Wellness</p>
-        <h1>Next Big Product Radar</h1>
-        <p class="hero-copy">
-          Real-time radar that ranks durable trends vs fads using Google Trends, Reddit, YouTube, and PubMed signals.
-        </p>
+        <h1>Find what’s actually taking off in India wellness</h1>
+        <p>Live data, simple scores, and clear “REAL vs FAD” calls.</p>
       </header>
 
-      <section class="controls card-surface">
-        <div class="control-group">
-          <label for="searchInput">Search</label>
-          <input id="searchInput" type="search" placeholder="e.g., creatine, sleep, pcos" />
+      <section class="control-bar card">
+        <div class="timeline" id="timelineBtns">
+          <button data-timeline="7D">7D</button>
+          <button data-timeline="30D">30D</button>
+          <button data-timeline="90D" class="active">90D</button>
+          <button data-timeline="12M">12M</button>
         </div>
 
-        <div class="control-group">
-          <label for="categoryFilter">Category</label>
-          <select id="categoryFilter">
-            <option value="all">All categories</option>
-          </select>
-        </div>
+        <input id="searchInput" type="search" placeholder="Search a trend..." />
 
-        <div class="control-group">
-          <label for="sortBy">Sort by</label>
-          <select id="sortBy">
-            <option value="tqs">Trend Quality Score (TQS)</option>
-            <option value="velocity">Signal Velocity</option>
-            <option value="opportunity">Opportunity (₹ Cr)</option>
-            <option value="risk">Risk (low → high)</option>
-            <option value="ttm">Time-to-Mainstream (fastest)</option>
-          </select>
-        </div>
+        <select id="categoryFilter">
+          <option value="all">All categories</option>
+          <option>Sleep</option>
+          <option>Gut</option>
+          <option>Women</option>
+          <option>Skin</option>
+          <option>Focus</option>
+          <option>Longevity</option>
+        </select>
 
-        <div class="control-group actions-group">
-          <button id="refreshBtn">Refresh Live Signals</button>
-          <p id="statusText" class="status-text">Loading live signals…</p>
-        </div>
+        <select id="sortBy">
+          <option value="fast">How fast it’s growing</option>
+          <option value="money">Money potential (₹)</option>
+          <option value="risk">Risk (low to high)</option>
+          <option value="last">Will it last?</option>
+        </select>
+
+        <button id="refreshBtn">Refresh</button>
       </section>
 
-      <section class="summary-grid" id="summaryGrid"></section>
-      <section id="trendGrid" class="trend-grid"></section>
+      <p id="statusText" class="status">Loading live trends…</p>
 
-      <section class="methodology card-surface">
-        <h2>Prove It: Methodology</h2>
-        <p>
-          <strong>TQS = 0.30×Durability + 0.25×Velocity + 0.20×Intent + 0.15×Evidence + 0.10×(100−Competition)</strong>
-        </p>
-        <p>
-          REAL trends require broad corroboration + durability; FAD labels trigger on low durability, high spikeiness, or thin evidence.
-        </p>
+      <section id="trendGrid" class="grid"></section>
+      <section id="emptyState" class="empty hidden card">
+        <h3>Hmm, no match yet 👀</h3>
+        <p>Try another keyword or switch timeline. Great trends are shy sometimes.</p>
       </section>
-    </div>
-
-    <div id="briefModal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
-      <div class="modal-panel">
-        <button id="closeModal" class="close-btn" aria-label="Close">×</button>
-        <div id="modalContent"></div>
-      </div>
-    </div>
+    </main>
 
     <script src="app.js" defer></script>
   </body>

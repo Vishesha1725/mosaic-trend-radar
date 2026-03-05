@@ -1,66 +1,66 @@
-# Next Big Product Radar (Live Data, No Mock Dataset)
+# Next Big Product Radar
 
-A premium static web app that evaluates **real Indian wellness signals** and separates **REAL trends vs FADs** using an explainable Trend Quality Score (TQS).
+A simple, premium web app that helps you spot wellness trends in India and decide if each one is **REAL** or **FAD**.
 
-## Live data sources used
-- Google Trends (India trending RSS feed)
-- Reddit live search JSON
-- YouTube search RSS feed
-- PubMed (NCBI E-utilities)
+## What this app does
+- Shows trends across categories: **Sleep, Gut, Women, Skin, Focus, Longevity**
+- Lets you switch timeline: **7D / 30D / 90D / 12M**
+- Pulls live data from server routes (no client-side keys)
+- Gives clear labels and plain-English reasons
+- Opens a full founder brief page for each trend
 
-> This build does not rely on local sample trend data files. It fetches live signals at runtime.
+## Live signal routes
+All routes run on the server with 10-minute cache where needed:
 
-## How to run
-1. Open `index.html` directly, or
-2. Run a local server (recommended for browser fetch compatibility):
+- `GET /api/signals/google-trends?keyword=...&timeline=...`
+- `GET /api/signals/youtube?keyword=...&timeline=...`
+- `GET /api/signals/reddit?keyword=...&timeline=...`
+- `GET /api/signals/pubmed?keyword=...`
+- `GET /api/signals/amazon?keyword=...` (stub, OFF unless Amazon keys exist)
+- `GET /api/trends?timeline=...`
+- `GET /api/brief?keyword=...&timeline=...`
+
+## Simple scoring words used in UI
+- **How fast it’s growing**
+- **Will it last?**
+- **Proof**
+- **How crowded is it?**
+- **Money potential (₹)**
+
+## REAL vs FAD logic (plain version)
+A trend is usually **REAL** when:
+- It keeps moving up across the selected timeline
+- It does not look like one sharp spike
+- More than one source is moving (Google + Reddit + YouTube + PubMed)
+
+A trend is **FAD** when:
+- It spikes sharply and cools fast
+- Only one source moves
+- Proof is weak
+
+## Local setup
+1. Create `.env.local` in project root.
+2. Add keys (example below).
+3. Run:
    ```bash
-   python3 -m http.server 8000
+   node server.js
    ```
-   Then open `http://localhost:8000`.
+4. Open: `http://localhost:3000`
 
-## Scoring logic (explainable)
-Each candidate trend receives these component scores (0–100):
+## `.env.local` example
+```bash
+YOUTUBE_API_KEY=your_youtube_key
+AMAZON_API_KEY=
+AMAZON_API_SECRET=
+PORT=3000
+```
 
-- **Velocity**: blended growth across Google + Reddit + YouTube
-- **Durability**: persistent slope with low spikeiness
-- **Intent**: usage/purchase style language + instructional content ratio
-- **Evidence**: PubMed momentum and supporting evidence density
-- **Competition**: saturation proxy from social/video volume
-
-Final score:
-
-`TQS = 0.30*Durability + 0.25*Velocity + 0.20*Intent + 0.15*Evidence + 0.10*(100-Competition)`
-
-Classification:
-- **FAD** if spikeiness is high OR durability is low OR evidence is weak.
-- **REAL** when durability + multi-signal breadth + intent pass thresholds.
-
-## What the dashboard shows
-- Trend name + category
-- REAL/FAD badge
-- TQS + Signal Velocity
-- Google growth %, Reddit/YT spikes
-- Risk score
-- Opportunity estimate (₹ Cr)
-- Time-to-mainstream estimate
-- Sparkline (7/30/90 style momentum proxy)
-- “View Opportunity Brief” modal with score breakdown and founder action plan
-
-## Founder Action Plan (Template)
-1. **Trend Thesis (1 line)**
-2. **Hero SKU Wedge (novel product format)**
-3. **90-day validation plan**
-4. **Risk controls and kill metrics**
-5. **Scale trigger conditions**
-
-## Deployment (live URL)
-Deploy this static app on any static host (Vercel/Netlify/GitHub Pages).
-
-### Vercel quick deploy
-1. Push repo to GitHub
-2. Import project in Vercel
-3. Framework preset: `Other` / static
+## Deployment (Vercel)
+1. Push this repo to GitHub
+2. Import in Vercel
+3. Add environment variables in Vercel Project Settings:
+   - `YOUTUBE_API_KEY`
+   - optional: `AMAZON_API_KEY`, `AMAZON_API_SECRET`
 4. Deploy
-5. Add your generated live URL here:
 
-`LIVE_URL_HERE`
+> Keys are only read on the server. They are not exposed to the browser.
